@@ -41,3 +41,8 @@ INFO:schedule:Running job Every 60 minutes do news_grab() (last run: [never], ne
 WARNING:root:C:\Users\Babek\Documents\python\github\newsfeed
 WARNING:root:grabbed pickles
 WARNING:root:C:\Users\Babek\Documents\python\github\newsfeednews_vect_pickle.p
+DEBUG:root:This message should go to the log file
+INFO:root:second log message
+WARNING:root:third log message
+WARNING:root:print to console
+INFO:root:if this prints then youre doing it wrong
