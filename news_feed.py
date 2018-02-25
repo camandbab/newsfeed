@@ -29,21 +29,28 @@ def get_directory():
 def news_grab():
 	try:
 		currentfolder = get_directory()
-		vectfile = currentfolder + 'news_vect_pickle.p'
-		modelfile = currentfolder + 'news_model_pickle.p'
+		logging.warning(currentfolder)
+		vectfile = currentfolder + '/news_vect_pickle.p'
+		modelfile = currentfolder + '/news_model_pickle.p'
+		logging.warning('grabbed pickles')
+		logging.warning(vectfile)
 		vect = pickle.load(open(vectfile, 'rb'))
+		logging.warning('loaded vect pickle')
 		model = pickle.load(open(modelfile, 'rb'))
-		
+		logging.warning('loaded pickles')
 		scope = ['https://spreadsheets.google.com/IFTTT']
 		credentials = ServiceAccountCredentials.from_json_keyfile_name(r'Feeds-178b2b03a664.json', scope)
+		logging.warning('grabbed IFTTT credentials')
 		gc = gspread.authorize(credentials)
 		logging.warning('grabbed things from google docs')
 		ws = gc.open('NewsFeed2')
 		sh = ws.sheet1
+		logging.warning('opened newsfeed google doc')
 		zd = list(zip(sh.col_values(2), sh.col_values(3), sh.col_values(4)))
 		zf = pd.DataFrame(zd, columns=['title', 'urls', 'html'])
 		zf.replace('', pd.np.nan, inplace=True)
 		zf.dropna(inplace=True)
+		logging.warning('this is what the news feed looks like')
 		logging.warning(zf.head)
 		def get_text(x):
 			soup = BeautifulSoup(x, 'lxml')
